@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>声キャン！ - 就活×ポイ活アプリ</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: auto;
+        }
+        
+        /* ヘッダー */
+        .header {
+            background: white;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .logo-link:hover .logo {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .header-cta {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            padding: 6px 11px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .header-cta:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* メインセクション */
+        .main-section {
+            background: #ffe1c1;
+            padding: 70px 20px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* メインビジュアル */
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+            margin-bottom: 30px;
+            animation: heroImageFadeIn 1.2s ease-out;
+        }
+        
+        /* デフォルトではPC版画像を表示、モバイル版画像を非表示 */
+        .hero-image-desktop {
+            display: block;
+        }
+        
+        .hero-image-mobile {
+            display: none;
+        }
+        
+        /* タブレット・モバイル端末では画像を切り替え */
+        @media (max-width: 1024px) {
+            .main-section {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            
+            .hero-image-desktop {
+                display: none;
+            }
+            
+            .hero-image-mobile {
+                display: block;
+                max-width: none;
+                max-height: none;
+                width: 100vw;
+                min-height: 95vh;
+                height: auto;
+                margin-left: 0;
+                margin-right: 0;
+                object-fit: contain;
+            }
+        }
+        
+        @keyframes heroImageFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* 実績カードコンテナ */
+        .achievements-container {
+            display: grid;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+        }
+        
+        /* PC向け：横並び3列レイアウト */
+        @media (min-width: 1024px) {
+            .achievements-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 25px;
+                max-width: 800px;
+            }
+        }
+        
+        /* 実績カード */
+        .achievement-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 重要：各カードに同じ横幅を設定 */
+        .achievement-card:nth-child(1) {
+            grid-column: 1 / span 2;
+            justify-self: center;
+            width: calc((100% - 15px) / 2);
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+        
+        .achievement-card:nth-child(2) {
+            grid-column: 1;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .achievement-card:nth-child(3) {
+            grid-column: 2;
+            animation: fadeInUp 0.8s ease-out 0.9s both;
+        }
+        
+        /* PC向け：横並び時の個別設定リセット */
+        @media (min-width: 1024px) {
+            .achievement-card:nth-child(1),
+            .achievement-card:nth-child(2), 
+            .achievement-card:nth-child(3) {
+                grid-column: unset;
+                justify-self: unset;
+                width: 100%;
+                flex: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .achievement-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .achievement-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+        
+        /* より小さな画面での調整 */
+        @media (max-width: 480px) {
+            .logo {
+                height: 35px;
+            }
+            
+            .header-cta {
+                font-size: 12px;
+                padding: 6px 9px;
+            }
+            
+            .hero-image {
+                max-height: 160px;
+            }
+            
+            .achievements-container {
+                max-width: 350px;
+                gap: 12px;
+            }
+            
+            .achievement-card {
+                height: 110px;
+                padding: 15px;
+            }
+            
+            .achievement-card:nth-child(1) {
+                width: calc((100% - 12px) / 2);
+            }
+        }
+        
+        /* PC向けの設定を小画面では無効化 */
+        @media (max-width: 1023px) {
+            .achievements-container {
+                display: grid !important;
+            }
+            
+            .achievement-title {
+                font-size: 12px;
+            }
+            
+            .achievement-number {
+                font-size: 18px;
+            }
+        }
+        
+        /* カウントアップアニメーション */
+        .countup {
+            display: inline-block;
+        }
+        
+        /* 心が動くメッセージセクション */
+        .inspiring-section {
+            background: linear-gradient(135deg, #FFEDE0 0%, #FFFFFF 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .inspiring-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .inspiring-text-content {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .inspiring-title {
+            font-size: clamp(5px, 4vw, 24px);
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            text-align: left;
+            max-width: 900px;
+            color: #CC5500;
+            margin-top: 0;
+        }
+        
+        .title-break {
+            display: none;
+        }
+        
+        /* イントロ画像コンテナ */
+        .intro-image-container {
+            position: relative;
+            width: 33%;
+            max-width: 350px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        
+        .intro-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .intro-image:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* メッセージ部分 */
+        .inspiring-message {
+            margin-top: 0;
+        }
+        
+        .inspiring-message p {
+            margin: 0 0 15px 0;
+        }
+        
+        .inspiring-message p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .message-subtitle {
+            color: #CC5500;
+            font-size: clamp(5px, 4vw, 24px);
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            text-align: left;
+        }
+        
+        .message-main {
+            color: #CC5500;
+            font-size: clamp(5px, 4vw, 24px);
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            text-align: left;
+        }
+        
+        .message-highlight {
+            color: #FF6B35;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        
+        .message-quality {
+            color: #CC5500;
+            font-size: clamp(5px, 4vw, 24px);
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 0;
+        }
+        
+        /* モバイル・タブレット対応 */
+        @media (max-width: 1023px) {
+            .inspiring-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .inspiring-text-content {
+                text-align: center;
+            }
+            
+            .inspiring-title {
+                text-align: center;
+            }
+            
+            .title-line-1,
+            .title-line-2 {
+                display: block;
+            }
+            
+            .title-break {
+                display: block;
+                content: "";
+                height: 15px;
+            }
+            
+            .message-main,
+            .message-quality,
+            .message-subtitle {
+                text-align: center;
+            }
+            
+            .intro-image-container {
+                width: 80%;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .inspiring-section {
+                padding: 60px 20px;
+            }
+            
+            .intro-image-container {
+                max-width: 300px;
+                width: 100%;
+            }
+            
+            .intro-image {
+                border-radius: 10px;
+            }
+        }
+        
+        /* 機能説明セクション */
+        .flow-section {
+            background: #FFF5F0;
+            padding: 80px 20px;
+        }
+        
+        .features-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .features-title {
+            color: #CC5500;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        
+        .small-text {
+            font-size: 0.6em;
+            vertical-align: middle;
+        }
+        
+        .flow-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .flow-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .flow-subtitle {
+            color: #FF6B35;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .flow-title {
+            color: #CC5500;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+        
+        .title-quality {
+            color: #CC5500;
+            font-size: 32px;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        /* フローステップ */
+        .flow-step {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .step-badge {
+            background: #FF8C42;
+            color: white;
+            position: absolute;
+            left: 0px;
+            top: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .step-number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .step-label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: -5px;
+        }
+        
+        .step-content {
+            display: flex;
+            align-items: center;
+            padding: 40px 40px 40px 100px;
+        }
+        
+        .step-text {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .highlight-orange {
+            color: #FF8C42;
+            font-weight: bold;
+        }
+        
+        .highlight-yellow {
+            color: #CCB018;
+            font-weight: bold;
+        }
+        
+        .step-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .step-note {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .step-result {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .result-text {
+            color: #666;
+        }
+        
+        .result-number {
+            color: #FF6B35;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .result-note {
+            color: #FF6B35;
+            font-size: 14px;
+        }
+        
+        /* イラスト部分 */
+        .step-illustration {
+            flex-shrink: 0;
+            width: 300px;
+            height: 200px;
+            position: relative;
+        }
+        
+        /* サポート画像のスタイル */
+        .support-image {
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .support-image:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* ポイ活画像の特別スタイル */
+        .bonus-image {
+            padding: 10px;
+        }
+        
+        .bonus-image:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+        
+        /* おまけ機能のスタイル */
+        .bonus-feature {
+            border: 2px solid #FFD700;
+            background: white;
+        }
+        
+        .bonus-badge {
+            background: #FFD700;
+            color: #CC5500;
+            font-weight: bold;
+        }
+        
+        /* 今後の追加機能のスタイル */
+        .future-feature {
+            border: 2px solid #FFBE9F;
+            background: linear-gradient(135deg, #FFEDE0, #FFF5F0);
+        }
+        
+        .future-badge {
+            background: #FFBE9F;
+            color: #CC5500;
+            font-weight: bold;
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 767px) {
+            .flow-section {
+                padding: 60px 20px;
+            }
+            
+            .flow-title {
+                font-size: 22px;
+            }
+            
+            .title-quality {
+                font-size: 26px;
+            }
+            
+            .step-content {
+                flex-direction: column;
+                padding: 60px 20px 30px;
+                text-align: center;
+            }
+            
+            .step-badge {
+                position: absolute;
+                left: 0px;
+                top: 20px;
+                transform: none;
+                margin: 0;
+            }
+            
+            .step-illustration {
+                width: 100%;
+                max-width: 250px;
+                height: auto;
+            }
+            
+            .support-image {
+                max-width: 100%;
+                border-radius: 8px;
+            }
+            
+            .step-title {
+                font-size: 20px;
+            }
+            
+            .step-description {
+                font-size: 14px;
+            }
+        }
+        
+        /* まずは参加してみるCTAセクション */
+        .join-cta-section {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .join-cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .join-cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .join-cta-title {
+            color: white;
+            font-size: clamp(16px, 5vw, 24px);
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+        
+        .join-cta-subtitle {
+            color: white;
+            font-size: clamp(14px, 4vw, 20px);
+            margin-bottom: 50px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+        
+        .join-cta-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .join-cta-button {
+            background: white;
+            color: #FF6B35;
+            text-decoration: none;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .join-cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .join-cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .join-cta-button:hover {
+            transform: translateY(-5px);
+            background: #FFF8F5;
+        }
+        
+        .button-text {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .button-arrow {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .join-cta-button:hover .button-arrow {
+            transform: translateX(5px);
+        }
+        
+        .join-cta-note {
+            color: white;
+            font-size: 10px;
+            opacity: 0.8;
+            margin: 0;
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 767px) {
+            .join-cta-section {
+                padding: 80px 20px;
+            }
+            
+            .join-cta-button {
+                padding: 18px 40px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .join-cta-button {
+                padding: 16px 35px;
+                font-size: 18px;
+            }
+        }
+        
+        /* PC向け大画面対応 */
+        @media (min-width: 1024px) {
+            /* ヘッダーの最適化 */
+            .header {
+                padding: 15px 40px;
+                height: 80px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .header-cta {
+                font-size: 20px;
+                padding: 9px 19px;
+            }
+            
+            /* メインセクションの最適化 */
+            .main-section {
+                padding: 100px 40px 40px;
+            }
+            
+            .hero-image {
+                max-width: 900px;
+                max-height: 450px;
+            }
+            
+            .achievements-container {
+                max-width: 600px;
+                gap: 25px;
+            }
+            
+            .achievement-card {
+                height: 140px;
+                padding: 30px;
+            }
+            
+            .achievement-card:nth-child(1),
+            .achievement-card:nth-child(2),
+            .achievement-card:nth-child(3) {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .achievement-title {
+                font-size: 16px;
+            }
+            
+            .achievement-number {
+                font-size: 24px;
+            }
+            
+            /* 心が動くメッセージセクション */
+            .inspiring-section {
+                padding: 100px 40px;
+            }
+            
+            .inspiring-content {
+                max-width: 1400px;
+                gap: 60px;
+            }
+            
+            .inspiring-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+                line-height: 1.8;
+            }
+            
+            .intro-image-container {
+                max-width: 400px;
+            }
+            
+            .message-main {
+                font-size: 32px;
+            }
+            
+            .message-quality {
+                font-size: 32px;
+            }
+            
+            .message-subtitle {
+                font-size: 32px;
+            }
+            
+            /* 機能説明セクション */
+            .flow-section {
+                padding: 100px 40px;
+            }
+            
+            .features-title {
+                font-size: 48px;
+                margin-bottom: 80px;
+            }
+            
+            .step-content {
+                padding: 50px 60px 50px 120px;
+            }
+            
+            .step-badge {
+                width: 100px;
+                height: 100px;
+                left: 0px;
+            }
+            
+            .step-number {
+                font-size: 20px;
+            }
+            
+            .step-label {
+                font-size: 20px;
+            }
+            
+            .step-title {
+                font-size: 32px;
+            }
+            
+            .step-description {
+                font-size: 18px;
+            }
+            
+            .step-illustration {
+                width: 400px;
+                height: 250px;
+            }
+            
+            .support-image {
+                max-width: 350px;
+                border-radius: 15px;
+            }
+            
+            /* CTAセクション */
+            .join-cta-section {
+                padding: 120px 40px;
+            }
+            
+            .join-cta-title {
+                font-size: 30px;
+                margin-bottom: 35px;
+            }
+            
+            .join-cta-subtitle {
+                font-size: 24px;
+                margin-bottom: 60px;
+            }
+            
+            .join-cta-button {
+                padding: 25px 80px;
+                font-size: 26px;
+                gap: 20px;
+            }
+            
+            /* Q&Aセクション */
+            .qa-section {
+                padding: 100px 40px;
+            }
+            
+            .qa-container {
+                max-width: 1000px;
+            }
+            
+            .qa-title {
+                font-size: 48px;
+                margin-bottom: 70px;
+            }
+            
+            .qa-item {
+                margin-bottom: 30px;
+            }
+            
+            .qa-question {
+                padding: 35px 40px;
+                gap: 20px;
+            }
+            
+            .qa-item.active .qa-answer {
+                padding: 35px 40px;
+                max-height: 300px;
+            }
+            
+            .qa-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+            
+            .qa-text {
+                font-size: 18px;
+            }
+            
+            .qa-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            /* 超大画面向け追加最適化 */
+            .main-section,
+            .inspiring-section,
+            .flow-section,
+            .join-cta-section,
+            .qa-section {
+                padding-left: 80px;
+                padding-right: 80px;
+            }
+            
+            .inspiring-content {
+                max-width: 1600px;
+            }
+            
+            .flow-container,
+            .join-cta-container,
+            .qa-container {
+                max-width: 1200px;
+            }
+            
+            .hero-image {
+                max-width: 1100px;
+                max-height: 550px;
+            }
+            
+            .achievements-container {
+                max-width: 800px;
+            }
+        }
+
+        /* Q&A セクション */
+        .qa-section {
+            background: #F8F9FA;
+            padding: 80px 20px;
+        }
+        
+        .qa-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .qa-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 50px;
+        }
+        
+        .qa-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .qa-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .qa-question {
+            padding: 25px 30px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .qa-question:hover {
+            background: #FFF8F5;
+            border-bottom-color: #FF6B35;
+        }
+        
+        .qa-item.active .qa-question {
+            background: #FF6B35;
+            color: white;
+            border-bottom-color: #FF6B35;
+        }
+        
+        .qa-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: #FAFAFA;
+        }
+        
+        .qa-item.active .qa-answer {
+            padding: 25px 30px;
+            max-height: 200px;
+        }
+        
+        .qa-icon {
+            background: #FF6B35;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .qa-item.active .qa-question .qa-icon {
+            background: white;
+            color: #FF6B35;
+        }
+        
+        .qa-answer .qa-icon {
+            background: #CC5500;
+        }
+        
+        .qa-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .qa-answer .qa-text {
+            color: #555;
+            font-weight: normal;
+        }
+        
+        .qa-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #E9ECEF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .qa-item.active .qa-toggle {
+            background: white;
+            color: #FF6B35;
+            transform: rotate(45deg);
+        }
+        
+        .qa-question:hover .qa-toggle {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .qa-item.active .qa-question:hover .qa-toggle {
+            background: white;
+            color: #FF6B35;
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 767px) {
+            .qa-section {
+                padding: 60px 20px;
+            }
+            
+            .qa-title {
+                font-size: 28px;
+                margin-bottom: 40px;
+            }
+            
+            .qa-question {
+                padding: 20px;
+                gap: 12px;
+            }
+            
+            .qa-item.active .qa-answer {
+                padding: 20px;
+                max-height: 250px;
+            }
+            
+            .qa-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .qa-text {
+                font-size: 14px;
+            }
+            
+            .qa-toggle {
+                width: 25px;
+                height: 25px;
+                font-size: 18px;
+            }
+        }
+        
+        /* 極小画面（320px以下）での調整 */
+        @media (max-width: 320px) {
+            .inspiring-title {
+                margin-bottom: 30px;
+                line-height: 1.8;
+            }
+        }
+        
+        /* 中間画面サイズ（321px-480px）での調整 */
+        @media (min-width: 321px) and (max-width: 480px) {
+            .inspiring-title {
+                line-height: 1.8;
+            }
+        }
+        
+        /* フッター */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <a href="#" class="logo-link" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});">
+            <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_logo.png" alt="声キャン！" class="logo">
+        </a>
+        <button class="header-cta" onclick="window.location.href='https://koecan-v0-9kbd.vercel.app/'">今すぐ始める</button>
+    </header>
+    
+    <!-- メインセクション -->
+    <section class="main-section">
+        <!-- メインビジュアル -->
+        <!-- PC版表示用画像 -->
+        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/pc_lp.png" 
+             alt="JOB HUNTING MADE FUN, POINT SAVING MADE EASY" 
+             class="hero-image hero-image-desktop">
+        
+        <!-- モバイル版表示用画像 -->
+        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/mobile_lp.png"
+             alt="JOB HUNTING MADE FUN - 声キャン！就活×ポイ活アプリ" 
+             class="hero-image hero-image-mobile">
+        
+        <!-- 実績カード -->
+        <div class="achievements-container">
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="achievement-title">登録学生数</div>
+                <div class="achievement-number">
+                    <span class="countup" data-target="5000">0</span>人以上
+                </div>
+            </div>
+            
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="achievement-title">掲載企業数</div>
+                <div class="achievement-number">
+                    <span class="countup" data-target="2000">0</span>社以上
+                </div>
+            </div>
+            
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="900">
+                <div class="achievement-title">累計ポイント還元</div>
+                <div class="achievement-number">
+                    <span class="countup" data-target="50">0</span>億ポイント
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- 心が動くメッセージセクション -->
+    <section class="inspiring-section">
+        <div class="inspiring-content">
+            <div class="inspiring-text-content">
+                <h2 class="inspiring-title">
+                    <span class="title-line-1">就活迷子にさようなら。<br>声キャン！で相性ピッタリの企業に出会おう。<br>その秘密は…<br>価値観診断で相性ピッタリの企業がわかる。<br>声キャン！が、量より質の就活を実現する。</span>
+                </h2>
+            </div>
+            
+            <div class="intro-image-container">
+                <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_0_a0.png" 
+                     alt="声キャン！サービス紹介" 
+                     class="intro-image"
+                     data-aos="fade-up">
+            </div>
+        </div>
+    </section>
+    
+    <!-- アプリの流れ説明セクション -->
+    <section class="flow-section">
+        <div class="flow-container">
+
+            
+            <div class="features-header">
+                <h2 class="features-title" data-aos="fade-up">声キャン！<span class="small-text">で</span>できること</h2>
+            </div>
+
+            <!-- 機能1 -->
+            <div class="flow-step" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-badge">
+                    <span class="step-number">機能</span>
+                    <span class="step-label">1</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <h3 class="step-title">
+                            <span class="highlight-orange">マッチング機能</span>
+                        </h3>
+                        <p class="step-description">
+                            自分にマッチした企業に出会える。
+                        </p>
+                    </div>
+                    <div class="step-illustration">
+                        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_2.png" 
+                             alt="就活を全力で応援" 
+                             class="support-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 機能2 -->
+            <div class="flow-step" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-badge">
+                    <span class="step-number">機能</span>
+                    <span class="step-label">2</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <h3 class="step-title">
+                            <span class="highlight-orange">就活の専門家に相談</span>
+                        </h3>
+                        <p class="step-description">
+                            キャリア相談・ES/履歴書の添削を<br>就活の専門家が、全力でサポートします。
+                        </p>
+                    </div>
+                    <div class="step-illustration">
+                        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_3.png" 
+                             alt="最新の就活情報をゲット" 
+                             class="support-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 機能3 -->
+            <div class="flow-step" data-aos="fade-up">
+                <div class="step-badge">
+                    <span class="step-number">機能</span>
+                    <span class="step-label">3</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <h3 class="step-title">
+                            <span class="highlight-orange">企業情報GET</span>
+                        </h3>
+                        <p class="step-description">
+                            福井県の企業を中心に、<br>年代別平均年収などの<br>リアルな情報をお届けします。
+                        </p>
+                    </div>
+                    <div class="step-illustration">
+                        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_1.png" 
+                             alt="ホンネを答えるだけ" 
+                             class="support-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- おまけ機能 -->
+            <div class="flow-step bonus-feature" data-aos="fade-up" data-aos-delay="600">
+                <div class="step-badge bonus-badge">
+                    <span class="step-label">おまけ</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-text">
+                        <h3 class="step-title">
+                            <span class="highlight-yellow">ポイ活もできる</span>
+                        </h3>
+                        <p class="step-description">
+                            アンケートに答えるだけでポイントが貯まる。<br>就活しながらちょっと得できる！
+                        </p>
+                    </div>
+                    <div class="step-illustration">
+                        <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_4.png" 
+                             alt="ポイ活もできる！" 
+                             class="support-image bonus-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- まずは参加してみるCTAセクション -->
+    <section class="join-cta-section">
+        <div class="join-cta-container">
+            <h2 class="join-cta-title" data-aos="fade-up">
+                \ お得にポイ活しながら /<br>
+                あなたらしい未来を見つけに行こう！
+            </h2>
+            <p class="join-cta-subtitle" data-aos="fade-up" data-aos-delay="200">
+                あなたの理想の就活を始めませんか？
+            </p>
+            <div class="join-cta-button-container" data-aos="fade-up" data-aos-delay="400">
+                <!-- 外部リンクURL変更はこちら -->
+                <a href="https://koecan-v0-9kbd.vercel.app/" target="_blank" rel="noopener noreferrer" class="join-cta-button">
+                    <span class="button-text">声キャン！を始める</span>
+                    <span class="button-arrow">→</span>
+                </a>
+                <p class="join-cta-note">※外部サイトに移動します</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Q&A セクション -->
+    <section class="qa-section">
+        <div class="qa-container">
+            <h2 class="qa-title" data-aos="fade-up">よくあるご質問</h2>
+            <div class="qa-list">
+                <div class="qa-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="qa-question">
+                        <span class="qa-icon">Q</span>
+                        <span class="qa-text">声キャン！アプリは本当に無料で使えますか？</span>
+                        <span class="qa-toggle">+</span>
+                    </div>
+                    <div class="qa-answer">
+                        <span class="qa-icon">A</span>
+                        <span class="qa-text">はい、声キャン！アプリは完全無料でご利用いただけます。就活サポートもポイント獲得機能も、追加料金は一切かかりません。</span>
+                    </div>
+                </div>
+                
+                <div class="qa-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="qa-question">
+                        <span class="qa-icon">Q</span>
+                        <span class="qa-text">どのようにしてポイントを貯めることができますか？</span>
+                        <span class="qa-toggle">+</span>
+                    </div>
+                    <div class="qa-answer">
+                        <span class="qa-icon">A</span>
+                        <span class="qa-text">アンケートへの回答や企業説明会への参加でポイントが自動的に貯まります。</span>
+                    </div>
+                </div>
+                
+                <div class="qa-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="qa-question">
+                        <span class="qa-icon">Q</span>
+                        <span class="qa-text">貯めたポイントは何に使えますか？</span>
+                        <span class="qa-toggle">+</span>
+                    </div>
+                    <div class="qa-answer">
+                        <span class="qa-icon">A</span>
+                        <span class="qa-text">Amazonギフト券、QUOカード、電子マネー、スターバックスカードなど、様々な商品と交換可能です。</span>
+                    </div>
+                </div>
+                
+                <div class="qa-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="qa-question">
+                        <span class="qa-icon">Q</span>
+                        <span class="qa-text">就活サポートはどのような内容ですか？</span>
+                        <span class="qa-toggle">+</span>
+                    </div>
+                    <div class="qa-answer">
+                        <span class="qa-icon">A</span>
+                        <span class="qa-text">専任アドバイザーによる1対1の面談、エントリーシートの添削、面接対策、企業研究のサポートなど、内定獲得まで包括的にサポートいたします。</span>
+                    </div>
+                </div>
+                
+                <div class="qa-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="qa-question">
+                        <span class="qa-icon">Q</span>
+                        <span class="qa-text">個人情報は安全に管理されていますか？</span>
+                        <span class="qa-toggle">+</span>
+                    </div>
+                    <div class="qa-answer">
+                        <span class="qa-icon">A</span>
+                        <span class="qa-text">はい、お客様の個人情報は厳重に管理しております。SSL暗号化通信の採用、アクセス権限の制限、定期的なセキュリティ監査など、多層的なセキュリティ対策を実施しています。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2024 声キャン！. All rights reserved.</p>
+    </footer>
+    
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- カスタムJavaScript -->
+    <script>
+        // AOS初期化
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true
+        });
+        
+        // カウントアップアニメーション
+        function countUp(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function timer() {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                } else {
+                    if (target >= 1000) {
+                        element.textContent = Math.floor(start).toLocaleString();
+                    } else {
+                        element.textContent = start.toFixed(1);
+                    }
+                    requestAnimationFrame(timer);
+                }
+            }
+            timer();
+        }
+        
+        // Intersection Observerでカウントアップを実行
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const countupElements = entry.target.querySelectorAll('.countup');
+                    countupElements.forEach(element => {
+                        const target = parseFloat(element.dataset.target);
+                        countUp(element, target);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // 実績セクションを監視
+        const achievementsContainer = document.querySelector('.achievements-container');
+        if (achievementsContainer) {
+            observer.observe(achievementsContainer);
+        }
+        
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Q&A アコーディオン機能
+        document.querySelectorAll('.qa-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const qaItem = this.closest('.qa-item');
+                const isActive = qaItem.classList.contains('active');
+                
+                // 他の開いているアイテムを閉じる
+                document.querySelectorAll('.qa-item.active').forEach(item => {
+                    if (item !== qaItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // クリックされたアイテムの開閉を切り替え
+                if (isActive) {
+                    qaItem.classList.remove('active');
+                } else {
+                    qaItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
