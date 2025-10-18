@@ -1515,7 +1515,7 @@
                     if (target >= 1000) {
                         element.textContent = Math.floor(start).toLocaleString();
                     } else {
-                        element.textContent = start.toFixed(1);
+                        element.textContent = Math.floor(start).toLocaleString();
                     }
                     requestAnimationFrame(timer);
                 }
