@@ -54,10 +54,24 @@
             align-items: center;
             text-decoration: none;
             cursor: pointer;
+            gap: 10px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF6B35;
+            line-height: 1;
+            white-space: nowrap;
         }
         
         .logo-link:hover .logo {
             opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .logo-link:hover .logo-text {
+            opacity: 0.9;
             transition: opacity 0.3s ease;
         }
         
@@ -240,6 +254,10 @@
         @media (max-width: 480px) {
             .logo {
                 height: 35px;
+            }
+            
+            .logo-text {
+                font-size: 20px;
             }
             
             .header-cta {
@@ -1249,8 +1267,9 @@
     <header class="header">
         <a href="#" class="logo-link" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});">
             <img src="https://raw.githubusercontent.com/NSDKIT/koechan/refs/heads/main/img/lp_logo.png" alt="声キャン！" class="logo">
+            <span class="logo-text">声キャン！</span>
         </a>
-        <button class="header-cta" onclick="window.location.href='https://koecan-v0-9kbd.vercel.app/'">今すぐ始める</button>
+        <!-- <button class="header-cta" onclick="window.location.href='https://koecan-v0-9kbd.vercel.app/'">今すぐ始める</button> -->
     </header>
     
     <!-- メインセクション -->
@@ -1267,7 +1286,7 @@
              class="hero-image hero-image-mobile">
         
         <!-- 実績カード -->
-        <div class="achievements-container">
+        <!-- <div class="achievements-container">
             <div class="achievement-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="achievement-title">登録学生数</div>
                 <div class="achievement-number">
@@ -1288,7 +1307,7 @@
                     <span class="countup" data-target="100" data-decimal="0">0</span>回
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
     
     
